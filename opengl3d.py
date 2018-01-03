@@ -3,6 +3,7 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+max_distance = 300
 verticies = (
     (1, -1, -1),
     (1, 1, -1),
@@ -29,6 +30,25 @@ edges = (
     (5,7),
     )
 
+def set_vertices(max_distances):
+    x_value_change = random.randrange(-10,10)
+    y_value_change = random.randrange(-10,10)
+    z_value_change = random.randrange(-1*max_distance,-20)
+
+    new_verticies = []
+    for vet in verticies:
+        new_vert = []
+        new_x = ver[0] + x_value_change
+        new_y = ver[1] + y_value_change
+        new_z = ver[2] + z_value_change
+        new_vert.append(new_x)
+        new_vert.append(new_y)
+        new_vert.append(new_z)        
+        new_verticies.append(new_vert)
+
+    return new_verticies
+
+
 def Cube():
     glBegin(GL_LINES)
     for edge in edges:
@@ -48,6 +68,8 @@ def main():
     while True:
         glTranslatef(0,0,i)
         i += 0.00005
+        if i > 0.0695:
+            main()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -77,6 +99,3 @@ def main():
 
 main()
         
-
-
-    
